@@ -8,6 +8,8 @@ A **M**odel **P**redictive **C**ontrol for **Tra**cking with **I**mplicit Invari
 - run `startup.m` in matlab and set the paths to CasADi and MPT3
 - run one of the scripts from `tests/`
 
+Note that results are saved in the `tests/` directory on the same level as the script. For example, if you run `tests/dtls/traits.m`, the result for the CSE1 model will be saved at `tests/dtls/CSE1_simulation.mat`. That can be further processed or visualised using the available plotting functions.
+
 ## Structure
 
 ```
@@ -15,10 +17,13 @@ MPCTraIts/
 ├── costs
 ├── examples
 ├── models
+├── plots
 ├── README.md
 ├── startup.m
 └── tests
 ```
+
+The project follows a somewhat modular architecture. Most components (cost functions, models etc) are separated by category, such as discrete time linear systems (`dtls`). They are further subdivided by the algorithm, model or approach they are implementing, such as Implicit Invariant Sets (`IIS`).
 
 ### Costs
 
@@ -32,13 +37,17 @@ Examples consist of academic models (such as CSE) to be used in simulations for 
 
 #### Abstract
 
-There are abstract classes for Plant, Controller and Simulator, with each one of them defining the expected parameters of discrete time linear systems (`dtls`) and associated MPCs.
+There are abstract classes for Plant, Controller and Simulator, with each one of them defining the expected parameters of discrete time linear systems and associated MPCs.
 
 They use MPT3 Polygons, but that may be changed in the future to be able to use set representations from multiple toolboxes.
 
 #### Implicit Invariant Sets (IIS)
 
 `IIS_*` classes directly inherit the abstract classes mentioned above. They add variables and methods specific to MPC for Tracking with Implicit Invariant Sets, such as augmented reference points or an extended prediction horizon.
+
+### Plots
+
+Specific plots are defined to make data visualisation easier. As of now, they are defined as raw Matlab functions and there are no classes or shared structure among them.
 
 ### Tests
 
