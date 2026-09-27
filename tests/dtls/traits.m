@@ -13,14 +13,18 @@ fprintf('Controller horizon (N + M_tilde): %d\n', controller.N + controller.M_ti
 fprintf('Simulation duration: %d seconds\n', simulator.time(end));
 
 %% Run simulation and plot data
-% TODO: add caching / saving the results of a simulation
 [X_history, U_history, Theta_history] = simulator.run_simulation(plant, controller);
+
+% Save data locally
+% TODO: maybe add a caching class
+filename = "CSE1_simulation";
+save(filename, "X_history", "U_history", "Theta_history");
 
 % Calculate Psi and augmented Psi
 Psi = get_invariant_set(plant, controller);
 Psi_aug = get_augmented_invariant_set(plant, controller);
 
 % Plot data
-% TODO: add more plots and actually plot data
+% TODO: add more plots
 plot_state_evolution(simulator.x0, simulator.x_ref_real, ...
                         X_history, plant.X , Psi, Psi_aug);
