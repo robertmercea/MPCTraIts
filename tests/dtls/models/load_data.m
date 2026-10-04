@@ -3,7 +3,7 @@ function data = load_data()
     % dimensions/bounds
     
     % Load raw matrices from the model file
-    raw = load('examples/dtls/CSE1.mat', 'A', 'B', 'C');
+    raw = load('examples/dtls/limon_system.mat', 'A', 'B', 'C');
     
     data.T_sample = 1;
     
@@ -12,7 +12,7 @@ function data = load_data()
     data.B = raw.B * data.T_sample;
     
     % Modify C and D matrices
-    data.C = [raw.C(1:2, 1:2), zeros(2, size(raw.C, 2) - 2)];
+    data.C = raw.C;
     data.D = zeros(size(data.C, 1), size(data.B, 2));
     
     % Calculate dimensions
@@ -21,10 +21,10 @@ function data = load_data()
     data.dy = size(data.C, 1);
     
     % Define constraints
-    data.lb_x = repelem(-1, data.dx, 1);
-    data.ub_x = repelem(1, data.dx, 1);
-    data.lb_u = repelem(-1, data.du, 1);
-    data.ub_u = repelem(1, data.du, 1);
+    data.lb_x = repelem(-3, data.dx, 1);
+    data.ub_x = repelem(3, data.dx, 1);
+    data.lb_u = repelem(-2, data.du, 1);
+    data.ub_u = repelem(2, data.du, 1);
     
     % Calculate initial input guess
     data.ux0 = (data.lb_u + data.ub_u) / 2;

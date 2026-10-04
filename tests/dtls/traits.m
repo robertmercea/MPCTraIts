@@ -17,7 +17,7 @@ fprintf('Simulation duration: %d seconds\n', simulator.time(end));
 
 % Save data locally
 % TODO: maybe add a caching class
-filename = "CSE1_simulation";
+filename = "limon_simulation";
 save(filename, "X_history", "U_history", "Theta_history");
 
 % Calculate Psi and augmented Psi
